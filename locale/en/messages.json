@@ -168,6 +168,9 @@
     "tabPidTuning": {
         "message": "Tuning"
     },
+    "tabMonitoring": {
+        "message": "Monitoring"
+    },
     "tabReceiver": {
         "message": "Receiver"
     },

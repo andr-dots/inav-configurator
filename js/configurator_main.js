@@ -227,6 +227,10 @@ $(function() {
                         case 'pid_tuning':
                             pidTuningTab.initialize(content_ready);
                             break;
+                        case 'monitoring':
+                            require('./../tabs/monitoring');
+                            TABS.monitoring.initialize(content_ready);
+                            break;
                         case 'receiver':
                             receiverTab.initialize(content_ready);
                             break;

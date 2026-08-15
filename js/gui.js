@@ -48,6 +48,7 @@ var GUI_control = function () {
         'programming',
         'javascript_programming',
         'ez_tune',
+        'monitoring',
         'search'
     ];
     this.allowedTabs = this.defaultAllowedTabsWhenDisconnected;
