@@ -29,6 +29,7 @@ tabNames = [
  "osd",
  "outputs",
  "pid_tuning",
+ "monitoring",
  "ports",
  "programming",
  "receiver",
