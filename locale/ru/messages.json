@@ -2147,6 +2147,9 @@
     "tabPidTuning": {
         "message": "PID настройки"
     },
+    "tabMonitoring": {
+        "message": "Мониторинг"
+    },
     "blackboxButtonSave": {
         "message": "Сохранить и перезагрузить"
     },
