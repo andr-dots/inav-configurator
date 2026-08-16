@@ -46,6 +46,7 @@ import javascriptProgrammingTab from './../tabs/javascript_programming';
 import outputsTab from './../tabs/outputs';
 import osdTab from './../tabs/osd';
 import sensorsTab from './../tabs/sensors';
+import monitoringTab from './../tabs/monitoring';
 import loggingTab from './../tabs/logging';
 import advancedTuningTab from './../tabs/advanced_tuning';
 import onboardLoggingTab from  './../tabs/onboard_logging';
@@ -228,8 +229,7 @@ $(function() {
                             pidTuningTab.initialize(content_ready);
                             break;
                         case 'monitoring':
-                            require('./../tabs/monitoring');
-                            TABS.monitoring.initialize(content_ready);
+                            monitoringTab.initialize(content_ready);
                             break;
                         case 'receiver':
                             receiverTab.initialize(content_ready);

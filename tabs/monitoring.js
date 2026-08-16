@@ -2,26 +2,25 @@
 
 // This file is based on pid_tuning.js
 
-const path = require('path');
 
-const { GUI, TABS } = require('./../js/gui');
-const tabs = require('./../js/tabs');
-const Settings = require('./../js/settings');
-const i18n = require('./../js/localization');
-const osd = require('./osd.js');
-const sensors = require('./sensors.js');
+import GUI from './../js/gui';
+import tabs from './../js/tabs';
+import Settings from './../js/settings';
+import i18n from './../js/localization';
 
-TABS.monitoring = {
-    rateChartHeight: 117
-};
+import sensorsTab from './sensors';
+import osdTab from './osd';
 
-TABS.monitoring.initialize = function (callback) {
+const monitoringTab = {};
+
+
+monitoringTab.initialize = function (callback) {
 
     if (GUI.active_tab != 'monitoring') {
         GUI.active_tab = 'monitoring';
     }
 
-    GUI.load(path.join(__dirname, "monitoring.html"), Settings.processHtml(process_html));
+    import('./monitoring.html?raw').then(({default: html}) => GUI.load(html, Settings.processHtml(process_html)));
 
     function process_html() {
         // translate to user-selected language
@@ -38,19 +37,19 @@ TABS.monitoring.initialize = function (callback) {
             $(".tab-monitoring").remove();
 
             GUI.tab_switch_cleanup(function () {
-                TABS.monitoring.initialize();
+                monitoringTab.initialize();
             });
         });
 
         tabs.init($('.tab-monitoring'));
 
         $('#subtab-osd').load('./tabs/osd.html', function() {
-            TABS.osd.initialize();
+            osdTab.initialize();
 
             $('#subtab-osd .tab-osd .tab_title').hide()
 
             $('#subtab-sensors').load('./tabs/sensors.html', function() {
-                TABS.sensors.initialize(callback);
+                sensorsTab.initialize(callback);
 
                 $('#subtab-sensors .tab-sensors .tab_title').hide()
 
@@ -62,8 +61,10 @@ TABS.monitoring.initialize = function (callback) {
     }
 };
 
-TABS.monitoring.cleanup = function (callback) {
+monitoringTab.cleanup = function (callback) {
     if (callback) {
         callback();
     }
 };
+
+export default monitoringTab;
