@@ -47,8 +47,6 @@ TABS.monitoring.initialize = function (callback) {
         $('#subtab-sensors-label').on('click', function() {
             // Copied from sensors.js:
             $('.tab-sensors .info input:lt(4):not(:disabled)').prop('checked', true).trigger('change');
-
-            GUI.active_tab = 'monitoring';
         });
 
         $('#subtab-osd').load('./tabs/osd.html', function() {
@@ -56,6 +54,8 @@ TABS.monitoring.initialize = function (callback) {
 
             $('#subtab-sensors').load('./tabs/sensors.html', function() {
                 TABS.sensors.initialize(callback);
+
+                GUI.active_tab = 'monitoring';
             });
         });
 
