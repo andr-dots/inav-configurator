@@ -47,8 +47,12 @@ TABS.monitoring.initialize = function (callback) {
         $('#subtab-osd').load('./tabs/osd.html', function() {
             TABS.osd.initialize();
 
+            $('#subtab-osd .tab-osd .tab_title').hide()
+
             $('#subtab-sensors').load('./tabs/sensors.html', function() {
                 TABS.sensors.initialize(callback);
+
+                $('#subtab-sensors .tab-sensors .tab_title').hide()
 
                 GUI.active_tab = 'monitoring';
             });
