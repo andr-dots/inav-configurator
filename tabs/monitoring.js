@@ -44,11 +44,6 @@ TABS.monitoring.initialize = function (callback) {
 
         tabs.init($('.tab-monitoring'));
 
-        $('#subtab-sensors-label').on('click', function() {
-            // Copied from sensors.js:
-            $('.tab-sensors .info input:lt(4):not(:disabled)').prop('checked', true).trigger('change');
-        });
-
         $('#subtab-osd').load('./tabs/osd.html', function() {
             TABS.osd.initialize();
 
