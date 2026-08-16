@@ -211,67 +211,65 @@ sensorsTab.initialize = function (callback) {
         // disable graphs for sensors that are missing
         var checkboxes = $('.tab-sensors .info .checkboxes input');
         if (!BitHelper.bit_check(FC.CONFIG.activeSensors, 2)) { // mag
-            checkboxes.eq(2).prop('disabled', true);
+            checkboxes.filter('[name=mag_on]').prop('disabled', true);
         }
         if (!BitHelper.bit_check(FC.CONFIG.activeSensors, 4)) { // sonar
-            checkboxes.eq(4).prop('disabled', true);
+            checkboxes.filter('[name=sonar_on]').prop('disabled', true);
         }
 
         if (!BitHelper.bit_check(FC.CONFIG.activeSensors, 6)) { // airspeed
-            checkboxes.eq(5).prop('disabled', true);
+            checkboxes.filter('[name=airspeed_on]').prop('disabled', true);
         }
 
         if (!BitHelper.bit_check(FC.CONFIG.activeSensors, 7)) {
-            checkboxes.eq(6).prop('disabled', true);
+            checkboxes.filter('[name=temperature_on]').prop('disabled', true);
         }
 
         $('.tab-sensors .info .checkboxes input').on('change', function () {
             var enable = $(this).prop('checked');
-            var index = $(this).parent().index();
+            var name = $(this).attr('name');
 
-            switch (index) {
-                case 0:
+            switch (name) {
+                case 'gyro_on':
                     plot_gyro(enable);
                     break;
-                case 1:
+                case 'accel_on':
                     plot_accel(enable);
                     break;
-                case 2:
+                case 'mag_on':
                     plot_mag(enable);
                     break;
-                case 3:
+                case 'baro_on':
                     plot_altitude(enable);
                     break;
-                case 4:
+                case 'sonar_on':
                     plot_sonar(enable);
                     break;
-                case 5:
+                case 'airspeed_on':
                     plot_airspeed(enable);
                     break;
-                case 6:
+                case 'temperature_on':
                     plot_temperature(enable);
                     break;
-                case 7:
+                case 'debug_on':
                     plot_debug(enable);
                     break;
             }
 
-            var checkboxes = [];
-            $('.tab-sensors .info .checkboxes input').each(function () {
-                checkboxes.push($(this).prop('checked'));
-            });
+            var graphs_enabled = store.get('graphs_enabled', {});
+            graphs_enabled[name] = enable;
 
             startPolling();
 
-            store.set('graphs_enabled', checkboxes);
+            store.set('graphs_enabled', graphs_enabled);
         });
 
         const graphs_enabled = store.get('graphs_enabled', false);
         if (graphs_enabled) {
             var checkboxes = $('.tab-sensors .info .checkboxes input');
-            for (var i = 0; i < graphs_enabled.length; i++) {
-                checkboxes.eq(i).not(':disabled').prop('checked', graphs_enabled[i]).trigger('change');
-            }
+            Object.entries(graphs_enabled).forEach(([key, value]) => {
+                checkboxes.filter('[name=' + key + ']').not(':disabled').prop('checked', value).trigger('change');
+            })
         } else {
             $('.tab-sensors .info input:lt(4):not(:disabled)').prop('checked', true).trigger('change');
         }
