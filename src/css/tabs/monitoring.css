@@ -1,2 +1,6 @@
 @import "osd.css";
 @import "sensors.css";
+
+#content:has(.tab-monitoring) {
+    overflow-y: hidden;
+}
