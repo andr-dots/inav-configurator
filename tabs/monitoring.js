@@ -62,6 +62,11 @@ TABS.monitoring.initialize = function (callback) {
 
 TABS.monitoring.cleanup = function (callback) {
     if (callback) {
-        callback();
+        TABS.osd.cleanup(() => {
+            TABS.sensors.cleanup(callback);
+        });
+    } else {
+        TABS.osd.cleanup();
+        TABS.sensors.cleanup();
     }
 };
