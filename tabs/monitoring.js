@@ -45,20 +45,18 @@ TABS.monitoring.initialize = function (callback) {
         tabs.init($('.tab-monitoring'));
 
         $('#subtab-osd').load('./tabs/osd.html', function() {
-            TABS.osd.initialize();
-
             $('#subtab-osd .tab-osd .tab_title').hide()
 
-            $('#subtab-sensors').load('./tabs/sensors.html', function() {
-                TABS.sensors.initialize(callback);
+            TABS.osd.initialize(() => {
+                $('#subtab-sensors').load('./tabs/sensors.html', function() {
+                    $('#subtab-sensors .tab-sensors .tab_title').hide()
 
-                $('#subtab-sensors .tab-sensors .tab_title').hide()
+                    TABS.sensors.initialize(callback);
 
-                GUI.active_tab = 'monitoring';
-            });
+                    GUI.active_tab = 'monitoring';
+                });
+            }, false);
         });
-
-
     }
 };
 

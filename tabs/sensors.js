@@ -15,7 +15,7 @@ const i18n = require('./../js/localization');
 const BitHelper = require('./../js/bitHelper');
 
 TABS.sensors = {};
-TABS.sensors.initialize = function (callback) {
+TABS.sensors.initialize = function (callback, autoReady=true) {
     var self = this;
 
     if (GUI.active_tab != 'sensors') {
@@ -558,7 +558,11 @@ TABS.sensors.initialize = function (callback) {
            debugWin.window.getDebugTrace = function () { return FC.DEBUG_TRACE || ''; };
         });
 
-        GUI.content_ready(callback);
+        if (autoReady) {
+            GUI.content_ready(callback);
+        } else {
+            callback();
+        }
     });
 };
 
