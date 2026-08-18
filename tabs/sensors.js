@@ -13,7 +13,7 @@ import BitHelper from './../js/bitHelper';
 import store from '../js/store';
 
 const sensorsTab = {};
-sensorsTab.initialize = function (callback) {
+sensorsTab.initialize = function (callback, autoReady=true) {
     var self = this;
 
     if (GUI.active_tab !== this) {
@@ -552,7 +552,11 @@ sensorsTab.initialize = function (callback) {
            debugWin.window.getDebugTrace = function () { return FC.DEBUG_TRACE || ''; };
         });
 
-        GUI.content_ready(callback);
+        if (autoReady) {
+            GUI.content_ready(callback);
+        } else {
+            callback();
+        }
     }));
 };
 

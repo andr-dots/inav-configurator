@@ -3579,7 +3579,7 @@ HARDWARE.update = function(callback) {
 };
 
 const osdTab = {};
-osdTab.initialize = function (callback) {
+osdTab.initialize = function (callback, autoReady=true) {
 
     mspHelper.loadServoMixRules();
 
@@ -3766,7 +3766,11 @@ osdTab.initialize = function (callback) {
                 OSD.GUI.updateDjiMessageElements(this.checked);
             });
 
-            GUI.content_ready(callback);
+            if (autoReady) {
+                GUI.content_ready(callback);
+            } else {
+                callback();
+            }
         })));
     });
 };
