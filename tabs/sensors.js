@@ -20,6 +20,14 @@ sensorsTab.initialize = function (callback, autoReady=true) {
         GUI.active_tab = this;
     }
 
+    (() => {
+        var graphs_enabled = store.get('graphs_enabled', false);
+        if (Array.isArray(graphs_enabled)) {
+            // An old format, resetting:
+            store.set('graphs_enabled', {});
+        }
+    })();
+
     function initSensorData(){
         for (var i = 0; i < 3; i++) {
             FC.SENSOR_DATA.accelerometer[i] = 0;
@@ -267,6 +275,7 @@ sensorsTab.initialize = function (callback, autoReady=true) {
         const graphs_enabled = store.get('graphs_enabled', false);
         if (graphs_enabled) {
             var checkboxes = $('.tab-sensors .info .checkboxes input');
+            console.log(graphs_enabled);
             Object.entries(graphs_enabled).forEach(([key, value]) => {
                 checkboxes.filter('[name=' + key + ']').not(':disabled').prop('checked', value).trigger('change');
             })
