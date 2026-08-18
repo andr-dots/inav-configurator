@@ -43,16 +43,16 @@ monitoringTab.initialize = function (callback) {
 
         tabs.init($('.tab-monitoring'));
 
-        $('#subtab-osd').load('./tabs/osd.html', function() {
+        $('#subtab-osd').load('./tabs/osd.html', () => {
             $('#subtab-osd .tab-osd .tab_title').hide()
 
             osdTab.initialize(() => {
-                $('#subtab-sensors').load('./tabs/sensors.html', function() {
+                $('#subtab-sensors').load('./tabs/sensors.html', () => {
                     $('#subtab-sensors .tab-sensors .tab_title').hide()
 
                     sensorsTab.initialize(callback);
 
-                    GUI.active_tab = 'monitoring';
+                    GUI.active_tab = this;
                 });
             }, false);
         });
